@@ -26,7 +26,7 @@
       },
       "id": "get-problems",
       "name": "Get All Problems",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [460, 300],
       "credentials": {
@@ -86,7 +86,7 @@
       },
       "id": "acknowledge-problem",
       "name": "Acknowledge Problem",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [900, 400],
       "credentials": {

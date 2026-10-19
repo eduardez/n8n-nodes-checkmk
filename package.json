@@ -1,6 +1,6 @@
 {
-	"name": "n8n-nodes-checkmk",
-	"version": "1.1.1",
+	"name": "n8n-nodes-checkmk-evo",
+	"version": "1.1.2",
 	"description": "Complete n8n node for Checkmk monitoring system with 100% API coverage - 38 resources, 100+ operations",
 	"keywords": [
 		"n8n-community-node-package",
@@ -9,14 +9,17 @@
 		"monitoring"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/LynxmindRepo/n8n-nodes-checkmk",
+	"homepage": "https://github.com/eduardez/n8n-nodes-checkmk",
 	"author": {
-		"name": "Elicarlos Dias",
-		"email": "elicarlos.dias@lynxmind.com"
+		"name": "eduard3v",
+		"email": "eduard3v@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/LynxmindRepo/n8n-nodes-checkmk.git"
+		"url": "git+https://github.com/eduardez/n8n-nodes-checkmk.git"
+	},
+	"bugs": {
+		"url": "https://github.com/eduardez/n8n-nodes-checkmk/issues"
 	},
 	"engines": {
 		"node": ">=20.15"
@@ -25,6 +28,7 @@
 	"scripts": {
 		"build": "npx rimraf dist && tsc && gulp build:icons",
 		"dev": "tsc --watch",
+		"test": "tsc && node --test test",
 		"format": "prettier nodes credentials --write",
 		"lint": "eslint nodes credentials package.json",
 		"lintfix": "eslint nodes credentials package.json --fix",

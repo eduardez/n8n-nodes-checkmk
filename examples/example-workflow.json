@@ -25,7 +25,7 @@
       },
       "id": "create-host",
       "name": "Create Host",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [460, 300],
       "credentials": {
@@ -43,7 +43,7 @@
       },
       "id": "get-host",
       "name": "Get Host",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [680, 300],
       "credentials": {
@@ -65,7 +65,7 @@
       },
       "id": "create-downtime",
       "name": "Create Downtime",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [900, 300],
       "credentials": {
@@ -84,7 +84,7 @@
       },
       "id": "get-services",
       "name": "Get Services",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [1120, 300],
       "credentials": {
@@ -103,7 +103,7 @@
       },
       "id": "get-problems",
       "name": "Get Problems",
-      "type": "n8n-nodes-checkmk.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmk",
       "typeVersion": 1,
       "position": [460, 500],
       "credentials": {
