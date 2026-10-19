@@ -17,7 +17,7 @@ export async function checkmkApiRequest(
 	qs: any = {},
 	customHeaders?: any,
 ): Promise<any> {
-	const credentials = await this.getCredentials('checkmkApi');
+	const credentials = await this.getCredentials('checkmkEvoApi');
 
 	const options: IHttpRequestOptions = {
 		method,
@@ -38,7 +38,7 @@ export async function checkmkApiRequest(
 	try {
 		return await this.helpers.httpRequestWithAuthentication.call(
 			this,
-			'checkmkApi',
+			'checkmkEvoApi',
 			options,
 		);
 	} catch (error) {
@@ -81,7 +81,7 @@ export async function checkmkApiRequestWithETag(
 	body: Record<string, unknown> = {},
 	qs: any = {},
 ): Promise<{ data: any; etag: string }> {
-	const credentials = await this.getCredentials('checkmkApi');
+	const credentials = await this.getCredentials('checkmkEvoApi');
 
 	const options: IHttpRequestOptions = {
 		method,
@@ -100,7 +100,7 @@ export async function checkmkApiRequestWithETag(
 	try {
 		const response = await this.helpers.httpRequestWithAuthentication.call(
 			this,
-			'checkmkApi',
+			'checkmkEvoApi',
 			options,
 		);
 		

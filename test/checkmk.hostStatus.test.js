@@ -3,7 +3,7 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 
-const { Checkmk } = require('../dist/nodes/Checkmk/Checkmk.node.js');
+const { CheckmkEvo } = require('../dist/nodes/Checkmk/CheckmkEvo.node.js');
 
 const CREDENTIALS = {
 	host: 'https://cmk.example.test',
@@ -36,7 +36,7 @@ function makeContext({ resource = 'hostStatus', operation = 'getMany', params = 
 		},
 		getNode: () => ({
 			name: 'Checkmk',
-			type: 'n8n-nodes-checkmk-evo.checkmk',
+			type: 'n8n-nodes-checkmk-evo.checkmkEvo',
 			typeVersion: 1,
 			position: [0, 0],
 			parameters: {},
@@ -64,7 +64,7 @@ test('host status maps states 0, 1 and 2 and exposes name, state and label', asy
 		responses: [{ value: [host('up01', 0), host('down01', 1), host('unreach01', 2)], links: {} }],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(
 		items.map(({ json }) => [json.extensions.name, json.extensions.state, json.extensions.state_label]),
@@ -84,7 +84,7 @@ test('host status returns no items for an empty collection', async () => {
 		responses: [{ value: [], links: {} }],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(items, []);
 });
@@ -95,7 +95,7 @@ test('host status filters by host name with a Livestatus query expression', asyn
 		responses: [{ value: [host('web01', 0)], links: {} }],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 	const { qs } = context.calls[0];
 
 	assert.equal(items.length, 1);
@@ -112,7 +112,7 @@ test('host status honors custom columns and always includes name and state', asy
 		responses: [{ value: [host('web01', 0)], links: {} }],
 	});
 
-	await execute(new Checkmk(), context);
+	await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(context.calls[0].qs.columns, [
 		'name',
@@ -130,7 +130,7 @@ test('host status limit restricts results when Return All is disabled', async ()
 		responses: [{ value: [host('a', 0), host('b', 1), host('c', 2)], links: {} }],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(
 		items.map(({ json }) => json.extensions.name),
@@ -147,7 +147,7 @@ test('host status Return All follows pagination links', async () => {
 		],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(
 		items.map(({ json }) => json.extensions.name),
@@ -168,7 +168,7 @@ test('host status surfaces API errors', async () => {
 	});
 
 	await assert.rejects(
-		execute(new Checkmk(), context),
+		execute(new CheckmkEvo(), context),
 		(error) => error.name === 'NodeApiError',
 	);
 });
@@ -180,7 +180,7 @@ test('host status rejects an unexpected response structure', async () => {
 	});
 
 	await assert.rejects(
-		execute(new Checkmk(), context),
+		execute(new CheckmkEvo(), context),
 		/Unexpected response from the Checkmk host status endpoint/,
 	);
 });
@@ -192,7 +192,7 @@ test('host status rejects host entries without extensions.name', async () => {
 	});
 
 	await assert.rejects(
-		execute(new Checkmk(), context),
+		execute(new CheckmkEvo(), context),
 		/Unexpected response from the Checkmk host status endpoint/,
 	);
 });
@@ -214,7 +214,7 @@ test('host Get Many merges live status by host name', async () => {
 		],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.equal(context.calls[0].url, 'https://cmk.example.test/mysite/check_mk/api/1.0/domain-types/host_config/collections/all');
 	assert.equal(context.calls[1].url, 'https://cmk.example.test/mysite/check_mk/api/1.0/domain-types/host/collections/all');
@@ -245,7 +245,7 @@ test('host Get attaches live status', async () => {
 		],
 	});
 
-	const [items] = await execute(new Checkmk(), context);
+	const [items] = await execute(new CheckmkEvo(), context);
 
 	assert.equal(context.calls[1].qs.query, '{"op":"=","left":"name","right":"web01"}');
 	assert.deepEqual(context.calls[1].qs.columns, ['name', 'state', 'plugin_output']);
@@ -265,7 +265,7 @@ test('service Get Many sends configurable columns with mandatory service columns
 		responses: [{ value: [], links: {} }],
 	});
 
-	await execute(new Checkmk(), context);
+	await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(context.calls[0].qs.columns, [
 		'host_name',
@@ -276,6 +276,17 @@ test('service Get Many sends configurable columns with mandatory service columns
 	assert.equal(context.calls[0].qs.host_name, 'web01');
 });
 
+test('node and credential identifiers are unique to the evo package', async () => {
+	const { CheckmkEvoApi } = require('../dist/credentials/CheckmkEvoApi.credentials.js');
+	const description = new CheckmkEvo().description;
+	const codex = require('../dist/nodes/Checkmk/CheckmkEvo.node.json');
+
+	assert.equal(description.name, 'checkmkEvo');
+	assert.equal(description.credentials[0].name, 'checkmkEvoApi');
+	assert.equal(new CheckmkEvoApi().name, 'checkmkEvoApi');
+	assert.equal(codex.node, 'n8n-nodes-checkmk-evo.checkmkEvo');
+});
+
 test('service status Get Many always includes service identity columns', async () => {
 	const context = makeContext({
 		resource: 'serviceStatus',
@@ -284,7 +295,7 @@ test('service status Get Many always includes service identity columns', async (
 		responses: [{ value: [], links: {} }],
 	});
 
-	await execute(new Checkmk(), context);
+	await execute(new CheckmkEvo(), context);
 
 	assert.deepEqual(context.calls[0].qs.columns, ['host_name', 'description', 'state']);
 	assert.equal(context.calls[0].qs.host_name, undefined);

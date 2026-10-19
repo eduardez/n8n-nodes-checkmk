@@ -26,11 +26,11 @@
       },
       "id": "get-problems",
       "name": "Get All Problems",
-      "type": "n8n-nodes-checkmk-evo.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmkEvo",
       "typeVersion": 1,
       "position": [460, 300],
       "credentials": {
-        "checkmkApi": {
+        "checkmkEvoApi": {
           "id": "1",
           "name": "Checkmk API"
         }
@@ -86,11 +86,11 @@
       },
       "id": "acknowledge-problem",
       "name": "Acknowledge Problem",
-      "type": "n8n-nodes-checkmk-evo.checkmk",
+      "type": "n8n-nodes-checkmk-evo.checkmkEvo",
       "typeVersion": 1,
       "position": [900, 400],
       "credentials": {
-        "checkmkApi": {
+        "checkmkEvoApi": {
           "id": "1",
           "name": "Checkmk API"
         }

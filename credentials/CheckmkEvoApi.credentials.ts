@@ -5,9 +5,9 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class CheckmkApi implements ICredentialType {
-	name = 'checkmkApi';
-	displayName = 'Checkmk API';
+export class CheckmkEvoApi implements ICredentialType {
+	name = 'checkmkEvoApi';
+	displayName = 'Checkmk Evo API';
 	documentationUrl = 'https://docs.checkmk.com/latest/en/rest_api.html';
 	properties: INodeProperties[] = [
 		{

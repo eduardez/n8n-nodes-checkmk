@@ -116,7 +116,7 @@ Common site names include:
 
 1. **Open n8n** and navigate to `Credentials`
 2. **Click** `Add Credential` or `New`
-3. **Search for** `Checkmk API` or select it from the list
+3. **Search for** `Checkmk Evo API` or select it from the list
 4. **Fill in the credential fields**:
 
    ```

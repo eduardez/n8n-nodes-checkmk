@@ -67,23 +67,23 @@ function withHostStateLabel(hostStatus: IDataObject): IDataObject {
 	};
 }
 
-export class Checkmk implements INodeType {
+export class CheckmkEvo implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Checkmk',
-		name: 'checkmk',
+		displayName: 'Checkmk Evo',
+		name: 'checkmkEvo',
 		icon: 'file:checkmk.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Complete Checkmk monitoring system integration with 100% API coverage',
 		defaults: {
-			name: 'Checkmk',
+			name: 'Checkmk Evo',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'checkmkApi',
+				name: 'checkmkEvoApi',
 				required: true,
 			},
 		],
